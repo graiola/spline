@@ -113,6 +113,7 @@ public:
     double operator() (double x) const;
     double compute_derivate(double x) const;
     double compute_second_derivate(double x) const;
+    void clear();
 };
 
 /*class spline_derivate : public spline
@@ -280,6 +281,23 @@ std::vector<double> band_matrix::lu_solve(const std::vector<double>& b,
 
 // spline implementation
 // -----------------------
+
+void spline::clear()
+{
+    m_x.clear();
+    m_y.clear();
+    m_a.clear();
+    m_b.clear();
+    m_c.clear();
+
+    m_left_value = 0.0;
+    m_right_value = 0.0,
+    m_force_linear_extrapolation = false;
+    m_b0 = 0.0;
+    m_c0 = 0.0;
+    m_left = second_deriv;
+    m_right = second_deriv;
+}
 
 void spline::set_boundary(spline::bd_type left, double left_value,
                           spline::bd_type right, double right_value,
